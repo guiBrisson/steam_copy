@@ -17,6 +17,16 @@ class StoreViewModel @Inject constructor() : ViewModel() {
     init {
         _uiState.update { it.copy(isLoading = true) }
         getHighlightGames()
+        getBanner()
+    }
+
+    private fun getBanner() {
+        _uiState.update {
+            it.copy(
+                isLoading = false,
+                banner = "https://cdn.akamai.steamstatic.com/steam/clusters/takeunder/1d9be6494084c7c75cc6bcde/takeunder_mobile_english.jpg?t=1671047818"
+            )
+        }
     }
 
     private fun getHighlightGames() {
