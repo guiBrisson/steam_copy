@@ -1,4 +1,4 @@
-package me.brisson.steam_copy.shop
+package me.brisson.steam_copy.presentation.shop
 
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -40,8 +40,8 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import me.brisson.steam_copy.R
-import me.brisson.steam_copy.ui.theme.SteamCopyTheme
-import me.brisson.steam_copy.ui.theme.montserrat
+import me.brisson.steam_copy.presentation.ui.theme.SteamCopyTheme
+import me.brisson.steam_copy.presentation.ui.theme.montserrat
 
 @ExperimentalAnimationApi
 @Composable

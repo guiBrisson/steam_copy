@@ -1,4 +1,4 @@
-package me.brisson.steam_copy.shop
+package me.brisson.steam_copy.presentation.shop
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,7 +13,7 @@ class ShopViewModel @Inject constructor() : ViewModel() {
     private val _uiState = MutableStateFlow(ShopUiState())
     val uiState: StateFlow<ShopUiState> = _uiState.asStateFlow()
 
-    init {
-        _uiState.update { it.copy(isLoading = true) }
+    fun changeInnerScreen(innerScreen: InnerScreen) {
+        _uiState.update { it.copy(onInnerScreen = innerScreen) }
     }
 }

@@ -1,12 +1,10 @@
-package me.brisson.steam_copy.shop
+package me.brisson.steam_copy.presentation.shop
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.*
@@ -14,8 +12,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import me.brisson.steam_copy.ui.components.DropdownShopMenu
-import me.brisson.steam_copy.ui.theme.SteamCopyTheme
+import me.brisson.steam_copy.presentation.shop.inner_screens.store.StoreScreen
+import me.brisson.steam_copy.presentation.shop.inner_screens.wallet.WalletScreen
+import me.brisson.steam_copy.presentation.shop.inner_screens.wishlist.WishlistScreen
+import me.brisson.steam_copy.presentation.ui.components.DropdownShopMenu
+import me.brisson.steam_copy.presentation.ui.theme.SteamCopyTheme
 
 @ExperimentalAnimationApi
 @ExperimentalMaterial3Api
@@ -38,9 +39,9 @@ fun ShopScreen(
                 onSearchTextChange = { },
                 onSearch = { },
                 onMenu = { expandedMenuDropdown = !expandedMenuDropdown },
-                onStore = { },
-                onWishList = { },
-                onWallet = { }
+                onStore = { viewModel.changeInnerScreen(InnerScreen.STORE_SCREEN) },
+                onWishList = { viewModel.changeInnerScreen(InnerScreen.WISHLIST_SCREEN) },
+                onWallet = { viewModel.changeInnerScreen(InnerScreen.WALLET_SCREEN) }
             )
         }
     ) { paddingValues ->
@@ -49,10 +50,6 @@ fun ShopScreen(
                 .padding(paddingValues)
                 .fillMaxSize()
         ) {
-            if (uiState.isLoading) {
-                LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
-            }
-
             DropdownShopMenu(
                 modifier = Modifier,
                 expanded = expandedMenuDropdown,
@@ -64,6 +61,13 @@ fun ShopScreen(
                 onNews = { },
                 onLaboratory = { }
             )
+
+            when (uiState.onInnerScreen) {
+                InnerScreen.STORE_SCREEN -> StoreScreen()
+                InnerScreen.WISHLIST_SCREEN -> WishlistScreen()
+                InnerScreen.WALLET_SCREEN -> WalletScreen()
+            }
+
         }
     }
 }
