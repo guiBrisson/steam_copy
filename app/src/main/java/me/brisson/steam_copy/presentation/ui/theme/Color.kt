@@ -1,4 +1,4 @@
-package me.brisson.steam_copy.ui.theme
+package me.brisson.steam_copy.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

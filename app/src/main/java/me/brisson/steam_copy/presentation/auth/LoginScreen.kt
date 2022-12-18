@@ -1,4 +1,4 @@
-package me.brisson.steam_copy.auth
+package me.brisson.steam_copy.presentation.auth
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -18,8 +18,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import me.brisson.steam_copy.ui.theme.SteamCopyTheme
-import me.brisson.steam_copy.ui.theme.montserrat
+import me.brisson.steam_copy.presentation.ui.theme.SteamCopyTheme
+import me.brisson.steam_copy.presentation.ui.theme.montserrat
 
 @Composable
 fun LoginScreen(

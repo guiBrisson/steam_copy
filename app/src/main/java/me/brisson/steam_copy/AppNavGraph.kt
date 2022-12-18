@@ -9,8 +9,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import me.brisson.steam_copy.auth.LoginScreen
-import me.brisson.steam_copy.shop.ShopScreen
+import me.brisson.steam_copy.presentation.auth.LoginScreen
+import me.brisson.steam_copy.presentation.shop.ShopScreen
 
 @ExperimentalAnimationApi
 @ExperimentalMaterial3Api
