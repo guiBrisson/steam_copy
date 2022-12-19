@@ -20,6 +20,13 @@ class StoreViewModel @Inject constructor() : ViewModel() {
         getBanner()
         getSpecialOffers()
         getCategories()
+        getCategoryButtons()
+    }
+
+    private fun getCategoryButtons() {
+        val buttons = listOf("LANÇAMENTOS", "OFERTAS", "JOGOS GRATUITOS", "MARCADORES")
+
+        _uiState.update { it.copy(isLoading = false, categoryButtons = buttons) }
     }
 
     private fun getCategories() {

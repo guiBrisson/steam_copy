@@ -8,5 +8,6 @@ data class StoreUiState(
     val highlightGames: List<Game> = emptyList(),
     val banner: String? = null,
     val specialOffers: List<Game> = emptyList(),
-    val categories: List<Category> = emptyList()
+    val categories: List<Category> = emptyList(),
+    val categoryButtons: List<String> = emptyList()
 )

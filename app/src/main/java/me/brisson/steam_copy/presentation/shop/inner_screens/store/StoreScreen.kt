@@ -13,15 +13,20 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.google.accompanist.flowlayout.FlowMainAxisAlignment
+import com.google.accompanist.flowlayout.FlowRow
+import com.google.accompanist.flowlayout.SizeMode
 import me.brisson.steam_copy.presentation.ui.components.GameCategory
 import me.brisson.steam_copy.presentation.ui.components.GameTile
 import me.brisson.steam_copy.presentation.ui.components.GameTileBig
+import me.brisson.steam_copy.presentation.ui.components.NavigationButton
 import me.brisson.steam_copy.presentation.ui.theme.SteamCopyTheme
 
 @Composable
@@ -73,7 +78,7 @@ fun StoreScreen(
                         modifier = Modifier
                             .padding(horizontal = 20.dp, vertical = 20.dp)
                             .fillMaxWidth()
-                            .clickable {  },
+                            .clickable { },
                         model = ImageRequest.Builder(LocalContext.current)
                             .data(banner)
                             .crossfade(true)
@@ -130,6 +135,36 @@ fun StoreScreen(
                                     )
                                 }
                             }
+                        }
+                    }
+                }
+            }
+
+            uiState.categoryButtons.let { buttons ->
+                if (buttons.isNotEmpty()) {
+                    item {
+                        SegmentTitle(
+                            modifier = Modifier.padding(top = 20.dp),
+                            title = "NAVEGAR PELA STEAM"
+                        )
+
+                        FlowRow(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 10.dp),
+                            mainAxisSize = SizeMode.Expand,
+                            mainAxisAlignment = FlowMainAxisAlignment.SpaceBetween
+                        ) {
+
+                            for (button in buttons) {
+                                val itemSize = (LocalConfiguration.current.screenWidthDp.dp / 2) - 10.dp
+                                NavigationButton(
+                                    modifier = Modifier.width(itemSize),
+                                    text = button,
+                                    onClick = { /*TODO*/ }
+                                )
+                            }
+
                         }
                     }
                 }
