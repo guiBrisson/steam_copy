@@ -6,8 +6,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.LinearProgressIndicator
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -15,14 +13,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import me.brisson.steam_copy.presentation.ui.components.GameTile
+import me.brisson.steam_copy.presentation.ui.components.GameTileBig
 import me.brisson.steam_copy.presentation.ui.theme.SteamCopyTheme
 
 @Composable
@@ -51,13 +48,8 @@ fun StoreScreen(
                                 .background(Color(0xFF1D3E5D))
                                 .padding(vertical = 20.dp),
                         ) {
-                            Text(
-                                modifier = Modifier.padding(bottom = 10.dp, start = 20.dp),
-                                text = "DESTAQUES E RECOMENDADOS",
-                                style = TextStyle(
-                                    color = MaterialTheme.colorScheme.onSurface,
-                                    fontSize = 14.sp
-                                )
+                            SegmentTitle(
+                                title = "DESTAQUES E RECOMENDADOS"
                             )
                             LazyRow(contentPadding = PaddingValues(horizontal = 10.dp)) {
                                 items(games) { game ->
@@ -85,6 +77,32 @@ fun StoreScreen(
                         contentDescription = null,
                         contentScale = ContentScale.FillWidth,
                     )
+                }
+            }
+
+            uiState.specialOffers.let { games ->
+                if (uiState.specialOffers.isNotEmpty()) {
+                    item {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 20.dp),
+                        ) {
+                            SegmentTitle(
+                                title = "OFERTAS ESPECIAIS",
+                                onMore = { /*TODO*/ }
+                            )
+
+                            LazyRow(contentPadding = PaddingValues(horizontal = 10.dp)) {
+                                items(games) { game ->
+                                    GameTileBig(
+                                        modifier = Modifier.padding(horizontal = 10.dp),
+                                        game = game
+                                    )
+                                }
+                            }
+                        }
+                    }
                 }
             }
 

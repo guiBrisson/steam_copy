@@ -18,6 +18,17 @@ class StoreViewModel @Inject constructor() : ViewModel() {
         _uiState.update { it.copy(isLoading = true) }
         getHighlightGames()
         getBanner()
+        getSpecialOffers()
+    }
+
+    private fun getSpecialOffers() {
+        val games = listOf(
+            spiderManGame,
+            finalFantasyGame,
+            huntShowdownGame
+        )
+
+        _uiState.update { it.copy(isLoading = false, specialOffers = games) }
     }
 
     private fun getBanner() {

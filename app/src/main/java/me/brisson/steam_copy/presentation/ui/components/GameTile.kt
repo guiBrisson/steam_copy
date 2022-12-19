@@ -80,6 +80,79 @@ fun GameTile(
 }
 
 @Composable
+fun GameTileBig(
+    modifier: Modifier = Modifier,
+    game: Game
+) {
+    val tileWidth = (LocalConfiguration.current.screenWidthDp.dp) * 0.73f
+
+    Column(modifier = modifier.width(tileWidth)) {
+        AsyncImage(
+            modifier = Modifier
+                .fillMaxWidth()
+                .aspectRatio(1f),
+            model = ImageRequest.Builder(LocalContext.current)
+                .data(game.image)
+                .crossfade(true)
+                .build(),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            placeholder = painterResource(id = R.drawable.person_placeholder)
+        )
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(80.dp)
+                .background(
+                    brush = Brush.verticalGradient(
+                        colors = listOf(Color(0xFF1b5978), Color(0xFF317b97))
+                    )
+                )
+                .padding(horizontal = 15.dp),
+            verticalArrangement = Arrangement.SpaceEvenly
+        ) {
+            Column {
+                Text(
+                    text = game.name,
+                    maxLines = 1,
+                    style = TextStyle(
+                        fontFamily = montserrat,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        fontWeight = FontWeight.SemiBold,
+                        fontSize = 12.sp
+                    ),
+                    overflow = TextOverflow.Ellipsis
+                )
+                Text(
+                    modifier = Modifier.padding(top = 1.dp),
+                    text = "Oferta válida até 5/jan./2023 às 15:00",
+                    style = TextStyle(
+                        fontFamily = montserrat,
+                        color = Color(0xFFa5e5ff),
+                        fontSize = 10.sp
+                    ),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
+
+
+            game.currentPrice?.let { currentPrice ->
+                game.priceHistory?.first()?.let { odlPrice ->
+                    GamePromoBigComponent(
+                        currentPrice = currentPrice,
+                        oldPrice = odlPrice
+                    )
+                }
+            }
+
+        }
+    }
+
+
+}
+
+@Composable
 private fun GamePriceComponent(modifier: Modifier = Modifier, game: Game) {
     val gamePromo = game.currentPrice != null && !game.priceHistory.isNullOrEmpty()
     val normalPrice = game.currentPrice != null && game.priceHistory.isNullOrEmpty()
@@ -152,12 +225,64 @@ private fun GamePromoComponent(
     }
 }
 
+@Composable
+fun GamePromoBigComponent(
+    modifier: Modifier = Modifier,
+    currentPrice: Float,
+    oldPrice: Float
+) {
+    val discountPercentage = ((currentPrice.times(100f)) / oldPrice).roundToInt()
+
+    Row(modifier = modifier.height(IntrinsicSize.Min)) {
+        Text(
+            modifier = Modifier
+                .fillMaxHeight()
+                .background(color = Color(0xFF4b6b21))
+                .padding(horizontal = 3.dp, vertical = 0.dp),
+            text = "-$discountPercentage%",
+            fontSize = 20.sp,
+            fontWeight = FontWeight.SemiBold,
+            color = Color(0xFFbde842)
+        )
+        Column(
+            modifier = Modifier
+                .background(color = Color(0xFF344654))
+                .padding(horizontal = 4.dp),
+            verticalArrangement = Arrangement.SpaceEvenly,
+            horizontalAlignment = Alignment.End
+        ) {
+            Text(
+                text = "R$ $oldPrice",
+                fontSize = 10.sp,
+                color = Color.Gray,
+                textDecoration = TextDecoration.LineThrough
+            )
+            Text(
+                modifier = Modifier.padding(start = 4.dp),
+                text = "R$ $currentPrice",
+                fontSize = 11.sp,
+                color = Color(0xFFbde842),
+            )
+        }
+    }
+}
+
 @Preview
 @Composable
 fun PreviewGameTile() {
     SteamCopyTheme {
         Box(Modifier.fillMaxWidth()) {
             GameTile(game = finalFantasyGame)
+        }
+    }
+}
+
+@Preview
+@Composable
+fun PreviewGameTileBig() {
+    SteamCopyTheme {
+        Box(Modifier.fillMaxWidth()) {
+            GameTileBig(game = finalFantasyGame)
         }
     }
 }
