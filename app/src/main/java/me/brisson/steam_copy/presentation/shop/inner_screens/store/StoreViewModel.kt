@@ -19,6 +19,21 @@ class StoreViewModel @Inject constructor() : ViewModel() {
         getHighlightGames()
         getBanner()
         getSpecialOffers()
+        getCategories()
+    }
+
+    private fun getCategories() {
+        val categories = listOf(
+            fictionCategory,
+            freeToPlayCategory,
+            actionCategory,
+            survivalCategory,
+            casualCategory,
+            roguelikeCategory,
+            simulationCategory
+        ).shuffled()
+
+        _uiState.update { it.copy(isLoading = false, categories = categories) }
     }
 
     private fun getSpecialOffers() {
@@ -26,7 +41,7 @@ class StoreViewModel @Inject constructor() : ViewModel() {
             spiderManGame,
             finalFantasyGame,
             huntShowdownGame
-        )
+        ).shuffled()
 
         _uiState.update { it.copy(isLoading = false, specialOffers = games) }
     }
@@ -47,7 +62,7 @@ class StoreViewModel @Inject constructor() : ViewModel() {
             huntShowdownGame,
             multiVersusGame,
             hogwartsLegacyGame
-        )
+        ).shuffled()
 
         _uiState.update { it.copy(isLoading = false, highlightGames = games) }
     }

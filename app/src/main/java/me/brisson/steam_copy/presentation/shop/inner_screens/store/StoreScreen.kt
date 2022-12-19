@@ -1,6 +1,7 @@
 package me.brisson.steam_copy.presentation.shop.inner_screens.store
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -18,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import me.brisson.steam_copy.presentation.ui.components.GameCategory
 import me.brisson.steam_copy.presentation.ui.components.GameTile
 import me.brisson.steam_copy.presentation.ui.components.GameTileBig
 import me.brisson.steam_copy.presentation.ui.theme.SteamCopyTheme
@@ -55,7 +57,8 @@ fun StoreScreen(
                                 items(games) { game ->
                                     GameTile(
                                         modifier = Modifier.padding(horizontal = 10.dp),
-                                        game = game
+                                        game = game,
+                                        onClick = { }
                                     )
                                 }
                             }
@@ -69,7 +72,8 @@ fun StoreScreen(
                     AsyncImage(
                         modifier = Modifier
                             .padding(horizontal = 20.dp, vertical = 20.dp)
-                            .fillMaxWidth(),
+                            .fillMaxWidth()
+                            .clickable {  },
                         model = ImageRequest.Builder(LocalContext.current)
                             .data(banner)
                             .crossfade(true)
@@ -97,7 +101,32 @@ fun StoreScreen(
                                 items(games) { game ->
                                     GameTileBig(
                                         modifier = Modifier.padding(horizontal = 10.dp),
-                                        game = game
+                                        game = game,
+                                        onClick = { }
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            uiState.categories.let { categories ->
+                if (categories.isNotEmpty()) {
+                    item {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 20.dp),
+                        ) {
+                            SegmentTitle(title = "EXPLORE POR CATEGORIA")
+
+                            LazyRow(contentPadding = PaddingValues(horizontal = 10.dp)) {
+                                items(categories) { category ->
+                                    GameCategory(
+                                        modifier = Modifier.padding(horizontal = 10.dp),
+                                        category = category,
+                                        onClick = { }
                                     )
                                 }
                             }
