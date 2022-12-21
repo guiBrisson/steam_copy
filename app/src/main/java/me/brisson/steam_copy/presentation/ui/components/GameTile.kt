@@ -1,6 +1,7 @@
 package me.brisson.steam_copy.presentation.ui.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -32,11 +33,12 @@ import kotlin.math.roundToInt
 @Composable
 fun GameTile(
     modifier: Modifier = Modifier,
-    game: Game
+    game: Game,
+    onClick: () -> Unit
 ) {
     val tileWidth = (LocalConfiguration.current.screenWidthDp.dp) * 0.80f
 
-    Column(modifier = modifier.width(tileWidth)) {
+    Column(modifier = modifier.width(tileWidth).clickable { onClick() }) {
         AsyncImage(
             modifier = Modifier
                 .fillMaxWidth()
@@ -82,11 +84,12 @@ fun GameTile(
 @Composable
 fun GameTileBig(
     modifier: Modifier = Modifier,
-    game: Game
+    game: Game,
+    onClick: () -> Unit
 ) {
     val tileWidth = (LocalConfiguration.current.screenWidthDp.dp) * 0.73f
 
-    Column(modifier = modifier.width(tileWidth)) {
+    Column(modifier = modifier.width(tileWidth).clickable { onClick() }) {
         AsyncImage(
             modifier = Modifier
                 .fillMaxWidth()
@@ -272,7 +275,7 @@ fun GamePromoBigComponent(
 fun PreviewGameTile() {
     SteamCopyTheme {
         Box(Modifier.fillMaxWidth()) {
-            GameTile(game = finalFantasyGame)
+            GameTile(game = finalFantasyGame, onClick = { })
         }
     }
 }
@@ -282,7 +285,7 @@ fun PreviewGameTile() {
 fun PreviewGameTileBig() {
     SteamCopyTheme {
         Box(Modifier.fillMaxWidth()) {
-            GameTileBig(game = finalFantasyGame)
+            GameTileBig(game = finalFantasyGame, onClick = { })
         }
     }
 }
